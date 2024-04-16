@@ -30,7 +30,7 @@ class BlueprintTest extends UnitBaseTestCase
 
         $this->blueprint
             ->shouldReceive('addColumn')
-            ->with('geometry', 'col', ['subtype' => null,'srid' => null])
+            ->with('geometry', 'col', ['subtype' => null, 'srid' => null])
             ->once()
             ->andReturn($expectedCol);
 
@@ -183,11 +183,11 @@ class BlueprintTest extends UnitBaseTestCase
 
         $this->blueprint
             ->shouldReceive('addColumn')
-            ->with('geometry', 'col', ['subtype'=>null, 'srid' => 4326])
+            ->with('geometry', 'col', ['subtype' => null, 'srid' => 4326])
             ->once()
             ->andReturn($expectedCol);
 
-        $result = $this->blueprint->geometry('col', srid:4326);
+        $result = $this->blueprint->geometry('col', srid: 4326);
 
         $this->assertTrue($expectedCol == $result);
     }
