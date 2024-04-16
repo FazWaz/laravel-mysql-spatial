@@ -51,14 +51,14 @@ class CreateTables extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
             $table->increments('id');
-            $table->geometry('geo', 3857)->default(null)->nullable();
-            $table->point('location', 3857)->default(null)->nullable();
-            $table->lineString('line', 3857)->default(null)->nullable();
-            $table->polygon('shape', 3857)->default(null)->nullable();
-            $table->multiPoint('multi_locations', 3857)->default(null)->nullable();
-            $table->multiLineString('multi_lines', 3857)->default(null)->nullable();
-            $table->multiPolygon('multi_shapes', 3857)->default(null)->nullable();
-            $table->geometryCollection('multi_geometries', 3857)->default(null)->nullable();
+            $table->geometry('geo', srid: 3857)->default(null)->nullable();
+            $table->point('location', srid: 3857)->default(null)->nullable();
+            $table->lineString('line', srid: 3857)->default(null)->nullable();
+            $table->polygon('shape', srid: 3857)->default(null)->nullable();
+            $table->multiPoint('multi_locations', srid: 3857)->default(null)->nullable();
+            $table->multiLineString('multi_lines', srid: 3857)->default(null)->nullable();
+            $table->multiPolygon('multi_shapes', srid: 3857)->default(null)->nullable();
+            $table->geometryCollection('multi_geometries', srid: 3857)->default(null)->nullable();
         });
     }
 

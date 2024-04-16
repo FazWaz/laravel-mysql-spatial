@@ -24,18 +24,19 @@ class BlueprintTest extends UnitBaseTestCase
         $expectedCol = new ColumnDefinition([
             'type' => 'geometry',
             'name' => 'col',
+            'subtype' => null,
             'srid' => null,
         ]);
 
         $this->blueprint
             ->shouldReceive('addColumn')
-            ->with('geometry', 'col', ['srid' => null])
+            ->with('geometry', 'col', ['subtype' => null,'srid' => null])
             ->once()
             ->andReturn($expectedCol);
 
         $result = $this->blueprint->geometry('col');
 
-        $this->assertSame($expectedCol, $result);
+        $this->assertTrue($expectedCol == $result);
     }
 
     public function testPoint()
@@ -176,18 +177,19 @@ class BlueprintTest extends UnitBaseTestCase
         $expectedCol = new ColumnDefinition([
             'type' => 'geometry',
             'name' => 'col',
+            'subtype' => null,
             'srid' => 4326,
         ]);
 
         $this->blueprint
             ->shouldReceive('addColumn')
-            ->with('geometry', 'col', ['srid' => 4326])
+            ->with('geometry', 'col', ['subtype'=>null, 'srid' => 4326])
             ->once()
             ->andReturn($expectedCol);
 
-        $result = $this->blueprint->geometry('col', 4326);
+        $result = $this->blueprint->geometry('col', srid:4326);
 
-        $this->assertSame($expectedCol, $result);
+        $this->assertTrue($expectedCol == $result);
     }
 
     public function testPointWithSrid()

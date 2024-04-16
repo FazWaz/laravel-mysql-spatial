@@ -55,6 +55,6 @@ class MigrationTest extends IntegrationBaseCase
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci';
 
         $this->assertEquals('with_srid', $result->Table);
-        $this->assertEquals($expected, $result->{'Create Table'});
+        $this->assertEquals($expected, $result->{"Create Table"});
     }
 }
