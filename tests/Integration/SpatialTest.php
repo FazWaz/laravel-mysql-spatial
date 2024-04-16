@@ -2,6 +2,8 @@
 
 namespace Limenet\LaravelMysqlSpatial\Tests\Integration;
 
+use Limenet\LaravelMysqlSpatial\Tests\Integration\Migrations\CreateTables;
+use Limenet\LaravelMysqlSpatial\Tests\Integration\Migrations\UpdateTables;
 use Limenet\LaravelMysqlSpatial\Tests\Integration\Models\GeometryModel;
 use Limenet\LaravelMysqlSpatial\Tests\Integration\Models\NoSpatialFieldsModel;
 use Limenet\LaravelMysqlSpatial\Types\GeometryCollection;
