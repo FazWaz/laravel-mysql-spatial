@@ -1,5 +1,5 @@
 {
-    "name": "FazWaz/laravel-mysql-spatial",
+    "name": "fazwaz/laravel-mysql-spatial",
     "description": "MySQL spatial data types extension for Laravel.",
     "homepage": "https://github.com/FazWaz/laravel-mysql-spatial",
     "scripts": {
