@@ -1,7 +1,7 @@
 {
-    "name": "mankingkaew/laravel-mysql-spatial",
+    "name": "FazWaz/laravel-mysql-spatial",
     "description": "MySQL spatial data types extension for Laravel.",
-    "homepage": "https://github.com/mankingkaew/laravel-mysql-spatial",
+    "homepage": "https://github.com/FazWaz/laravel-mysql-spatial",
     "scripts": {
         "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
         "analyse": "vendor/bin/phpstan analyse",

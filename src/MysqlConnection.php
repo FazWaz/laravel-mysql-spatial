@@ -6,6 +6,7 @@ use Doctrine\DBAL\Types\Type as DoctrineType;
 use Grimzy\LaravelMysqlSpatial\Schema\Builder;
 use Grimzy\LaravelMysqlSpatial\Schema\Grammars\MySqlGrammar;
 use Illuminate\Database\MySqlConnection as IlluminateMySqlConnection;
+use Illuminate\Support\Facades\ParallelTesting;
 
 class MysqlConnection extends IlluminateMySqlConnection
 {
@@ -13,7 +14,7 @@ class MysqlConnection extends IlluminateMySqlConnection
     {
         parent::__construct($pdo, $database, $tablePrefix, $config);
 
-        if (class_exists(DoctrineType::class)) {
+        if (class_exists(DoctrineType::class) && ! ParallelTesting::token()) {
             // Prevent geometry type fields from throwing a 'type not found' error when changing them
             $geometries = [
                 'geometry',
