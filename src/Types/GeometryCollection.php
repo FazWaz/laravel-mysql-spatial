@@ -17,7 +17,7 @@ use IteratorAggregate;
  *
  * @implements GeometryInterface<FeatureCollection>
  */
-class GeometryCollection extends Geometry implements IteratorAggregate, ArrayAccess, Arrayable, Countable, GeometryInterface
+class GeometryCollection extends Geometry implements Arrayable, ArrayAccess, Countable, GeometryInterface, IteratorAggregate
 {
     /**
      * The minimum number of items required to create this collection.

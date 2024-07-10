@@ -71,8 +71,7 @@ class Point extends Geometry implements GeometryInterface
     }
 
     /**
-     * @param $geoJson  \GeoJson\Feature\Feature|string
-     * @return \Grimzy\LaravelMysqlSpatial\Types\Point
+     * @param  $geoJson  \GeoJson\Feature\Feature|string
      */
     public static function fromJson(string|GeoJson $geoJson): self
     {
