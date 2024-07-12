@@ -1,20 +1,17 @@
 <?php
 
-namespace Schema;
+namespace Limenet\LaravelMysqlSpatial\Tests\Unit\Schema;
 
-use BaseTestCase;
-use Grimzy\LaravelMysqlSpatial\Schema\Blueprint;
 use Illuminate\Database\Schema\ColumnDefinition;
+use Limenet\LaravelMysqlSpatial\Schema\Blueprint;
+use Limenet\LaravelMysqlSpatial\Tests\Unit\BaseTestCase as UnitBaseTestCase;
 use Mockery;
 
-class BlueprintTest extends BaseTestCase
+class BlueprintTest extends UnitBaseTestCase
 {
-    /**
-     * @var \Grimzy\LaravelMysqlSpatial\Schema\Blueprint
-     */
-    protected $blueprint;
+    protected \Limenet\LaravelMysqlSpatial\Schema\Blueprint $blueprint;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -27,18 +24,19 @@ class BlueprintTest extends BaseTestCase
         $expectedCol = new ColumnDefinition([
             'type' => 'geometry',
             'name' => 'col',
+            'subtype' => null,
             'srid' => null,
         ]);
 
         $this->blueprint
             ->shouldReceive('addColumn')
-            ->with('geometry', 'col', ['srid' => null])
+            ->with('geometry', 'col', ['subtype' => null, 'srid' => null])
             ->once()
             ->andReturn($expectedCol);
 
         $result = $this->blueprint->geometry('col');
 
-        $this->assertSame($expectedCol, $result);
+        $this->assertTrue($expectedCol == $result);
     }
 
     public function testPoint()
@@ -179,18 +177,19 @@ class BlueprintTest extends BaseTestCase
         $expectedCol = new ColumnDefinition([
             'type' => 'geometry',
             'name' => 'col',
+            'subtype' => null,
             'srid' => 4326,
         ]);
 
         $this->blueprint
             ->shouldReceive('addColumn')
-            ->with('geometry', 'col', ['srid' => 4326])
+            ->with('geometry', 'col', ['subtype' => null, 'srid' => 4326])
             ->once()
             ->andReturn($expectedCol);
 
-        $result = $this->blueprint->geometry('col', 4326);
+        $result = $this->blueprint->geometry('col', srid: 4326);
 
-        $this->assertSame($expectedCol, $result);
+        $this->assertTrue($expectedCol == $result);
     }
 
     public function testPointWithSrid()

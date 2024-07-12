@@ -1,14 +1,14 @@
 <?php
 
-namespace Schema;
+namespace Limenet\LaravelMysqlSpatial\Tests\Unit\Schema;
 
-use BaseTestCase;
-use Grimzy\LaravelMysqlSpatial\MysqlConnection;
-use Grimzy\LaravelMysqlSpatial\Schema\Blueprint;
-use Grimzy\LaravelMysqlSpatial\Schema\Builder;
+use Limenet\LaravelMysqlSpatial\MysqlConnection;
+use Limenet\LaravelMysqlSpatial\Schema\Blueprint;
+use Limenet\LaravelMysqlSpatial\Schema\Builder;
+use Limenet\LaravelMysqlSpatial\Tests\Unit\BaseTestCase as UnitBaseTestCase;
 use Mockery;
 
-class BuilderTest extends BaseTestCase
+class BuilderTest extends UnitBaseTestCase
 {
     public function testReturnsCorrectBlueprint()
     {

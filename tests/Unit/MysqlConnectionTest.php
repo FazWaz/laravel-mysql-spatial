@@ -1,18 +1,19 @@
 <?php
 
-use Grimzy\LaravelMysqlSpatial\MysqlConnection;
-use Grimzy\LaravelMysqlSpatial\Schema\Builder;
+namespace Limenet\LaravelMysqlSpatial\Tests\Unit;
+
+use Limenet\LaravelMysqlSpatial\MysqlConnection;
+use Limenet\LaravelMysqlSpatial\Schema\Builder;
 use PHPUnit\Framework\TestCase;
-use Stubs\PDOStub;
 
 class MysqlConnectionTest extends TestCase
 {
     private $mysqlConnection;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $mysqlConfig = ['driver' => 'mysql', 'prefix' => 'prefix', 'database' => 'database', 'name' => 'foo'];
-        $this->mysqlConnection = new MysqlConnection(new PDOStub(), 'database', 'prefix', $mysqlConfig);
+        $this->mysqlConnection = new MysqlConnection($this->createMock(\PDO::class), 'database', 'prefix', $mysqlConfig);
     }
 
     public function testGetSchemaBuilder()

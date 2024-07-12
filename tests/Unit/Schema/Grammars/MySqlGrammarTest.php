@@ -1,10 +1,14 @@
 <?php
 
-use Grimzy\LaravelMysqlSpatial\MysqlConnection;
-use Grimzy\LaravelMysqlSpatial\Schema\Blueprint;
-use Grimzy\LaravelMysqlSpatial\Schema\Grammars\MySqlGrammar;
+namespace Limenet\LaravelMysqlSpatial\Tests\Unit\Schema\Grammars;
 
-class MySqlGrammarBaseTest extends BaseTestCase
+use Limenet\LaravelMysqlSpatial\MysqlConnection;
+use Limenet\LaravelMysqlSpatial\Schema\Blueprint;
+use Limenet\LaravelMysqlSpatial\Schema\Grammars\MySqlGrammar;
+use Limenet\LaravelMysqlSpatial\Tests\Unit\BaseTestCase;
+use Mockery;
+
+class MySqlGrammarTest extends BaseTestCase
 {
     public function testAddingGeometry()
     {
@@ -89,7 +93,7 @@ class MySqlGrammarBaseTest extends BaseTestCase
     public function testAddingGeometryWithSrid()
     {
         $blueprint = new Blueprint('test');
-        $blueprint->geometry('foo', 4326);
+        $blueprint->geometry('foo', srid: 4326);
         $statements = $blueprint->toSql($this->getConnection(), $this->getGrammar());
 
         $this->assertEquals(1, count($statements));
@@ -186,10 +190,7 @@ class MySqlGrammarBaseTest extends BaseTestCase
         $this->assertEquals($expectedSql, $dropStatements[4]);
     }
 
-    /**
-     * @return Connection
-     */
-    protected function getConnection()
+    protected function getConnection($connection = null, $table = null)
     {
         return Mockery::mock(MysqlConnection::class);
     }

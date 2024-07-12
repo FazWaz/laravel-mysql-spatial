@@ -1,18 +1,32 @@
 <?php
 
-use Grimzy\LaravelMysqlSpatial\Schema\Blueprint;
+namespace Limenet\LaravelMysqlSpatial\Tests\Integration\Migrations;
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Schema;
+use Limenet\LaravelMysqlSpatial\Schema\Blueprint;
 
-class CreateLocationTable extends Migration
+class CreateTables extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
+        Schema::create('test_models', function (Blueprint $table) {
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_unicode_ci';
+            $table->increments('id');
+            $table->geometryCollection('geometrycollection')->default(null)->nullable();
+            $table->lineString('linestring')->default(null)->nullable();
+            $table->multiLineString('multilinestring')->default(null)->nullable();
+            $table->multiPoint('multipoint')->default(null)->nullable();
+            $table->multiPolygon('multipolygon')->default(null)->nullable();
+            $table->point('point')->default(null)->nullable();
+            $table->polygon('polygon')->default(null)->nullable();
+            $table->timestamps();
+        });
+
         Schema::create('geometry', function (Blueprint $table) {
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
@@ -37,26 +51,25 @@ class CreateLocationTable extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
             $table->increments('id');
-            $table->geometry('geo', 3857)->default(null)->nullable();
-            $table->point('location', 3857)->default(null)->nullable();
-            $table->lineString('line', 3857)->default(null)->nullable();
-            $table->polygon('shape', 3857)->default(null)->nullable();
-            $table->multiPoint('multi_locations', 3857)->default(null)->nullable();
-            $table->multiLineString('multi_lines', 3857)->default(null)->nullable();
-            $table->multiPolygon('multi_shapes', 3857)->default(null)->nullable();
-            $table->geometryCollection('multi_geometries', 3857)->default(null)->nullable();
+            $table->geometry('geo', srid: 3857)->default(null)->nullable();
+            $table->point('location', srid: 3857)->default(null)->nullable();
+            $table->lineString('line', srid: 3857)->default(null)->nullable();
+            $table->polygon('shape', srid: 3857)->default(null)->nullable();
+            $table->multiPoint('multi_locations', srid: 3857)->default(null)->nullable();
+            $table->multiLineString('multi_lines', srid: 3857)->default(null)->nullable();
+            $table->multiPolygon('multi_shapes', srid: 3857)->default(null)->nullable();
+            $table->geometryCollection('multi_geometries', srid: 3857)->default(null)->nullable();
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::drop('geometry');
         Schema::drop('no_spatial_fields');
         Schema::drop('with_srid');
+        Schema::drop('test_models');
     }
 }

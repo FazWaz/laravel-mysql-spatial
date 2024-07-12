@@ -1,12 +1,16 @@
 <?php
 
-use Illuminate\Support\Facades\DB;
+namespace Limenet\LaravelMysqlSpatial\Tests\Integration;
 
-class MigrationTest extends IntegrationBaseTestCase
+use Illuminate\Support\Facades\DB;
+use Limenet\LaravelMysqlSpatial\Tests\Integration\Migrations\CreateTables;
+use Limenet\LaravelMysqlSpatial\Tests\Integration\Migrations\UpdateTables;
+
+class MigrationTest extends IntegrationBaseCase
 {
     protected $migrations = [
-        CreateLocationTable::class,
-        UpdateLocationTable::class,
+        CreateTables::class,
+        UpdateTables::class,
     ];
 
     public function testTableWasCreatedWithRightTypes()

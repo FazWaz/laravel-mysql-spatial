@@ -1,12 +1,12 @@
 <?php
 
-use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
+namespace Limenet\LaravelMysqlSpatial\Tests\Integration\Models;
+
 use Illuminate\Database\Eloquent\Model;
+use Limenet\LaravelMysqlSpatial\Eloquent\SpatialTrait;
 
 /**
- * Class NoSpatialFieldsModel.
- *
- * @property \Grimzy\LaravelMysqlSpatial\Types\Geometry geometry
+ * @property \Limenet\LaravelMysqlSpatial\Types\Geometry geometry
  */
 class NoSpatialFieldsModel extends Model
 {

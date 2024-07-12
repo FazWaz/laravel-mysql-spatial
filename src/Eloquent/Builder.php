@@ -1,9 +1,9 @@
 <?php
 
-namespace Grimzy\LaravelMysqlSpatial\Eloquent;
+namespace Limenet\LaravelMysqlSpatial\Eloquent;
 
-use Grimzy\LaravelMysqlSpatial\Types\GeometryInterface;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Limenet\LaravelMysqlSpatial\Types\GeometryInterface;
 
 class Builder extends EloquentBuilder
 {
@@ -18,7 +18,7 @@ class Builder extends EloquentBuilder
         return parent::update($values);
     }
 
-    protected function asWKT(GeometryInterface $geometry)
+    protected function asWKT(GeometryInterface $geometry): SpatialExpression
     {
         return new SpatialExpression($geometry);
     }

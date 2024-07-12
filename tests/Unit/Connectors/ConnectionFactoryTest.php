@@ -1,15 +1,18 @@
 <?php
 
-use Grimzy\LaravelMysqlSpatial\Connectors\ConnectionFactory;
-use Grimzy\LaravelMysqlSpatial\MysqlConnection;
-use Illuminate\Container\Container;
-use Stubs\PDOStub;
+namespace Limenet\LaravelMysqlSpatial\Tests\Unit\Connectors;
 
-class ConnectionFactoryBaseTest extends BaseTestCase
+use Illuminate\Container\Container;
+use Limenet\LaravelMysqlSpatial\Connectors\ConnectionFactory;
+use Limenet\LaravelMysqlSpatial\MysqlConnection;
+use Limenet\LaravelMysqlSpatial\Tests\Unit\BaseTestCase;
+use Mockery;
+
+class ConnectionFactoryTest extends BaseTestCase
 {
     public function testMakeCallsCreateConnection()
     {
-        $pdo = new PDOStub();
+        $pdo = $this->createMock(\PDO::class);
 
         $factory = Mockery::mock(ConnectionFactory::class, [new Container()])->makePartial();
         $factory->shouldAllowMockingProtectedMethods();
@@ -20,7 +23,7 @@ class ConnectionFactoryBaseTest extends BaseTestCase
 
     public function testCreateConnectionDifferentDriver()
     {
-        $pdo = new PDOStub();
+        $pdo = $this->createMock(\PDO::class);
 
         $factory = Mockery::mock(ConnectionFactory::class, [new Container()])->makePartial();
         $factory->shouldAllowMockingProtectedMethods();

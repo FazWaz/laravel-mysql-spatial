@@ -1,10 +1,14 @@
 <?php
 
-use Grimzy\LaravelMysqlSpatial\Types\GeometryCollection;
-use Grimzy\LaravelMysqlSpatial\Types\GeometryInterface;
-use Grimzy\LaravelMysqlSpatial\Types\LineString;
-use Grimzy\LaravelMysqlSpatial\Types\Point;
-use Grimzy\LaravelMysqlSpatial\Types\Polygon;
+namespace Limenet\LaravelMysqlSpatial\Tests\Unit\Types;
+
+use InvalidArgumentException;
+use Limenet\LaravelMysqlSpatial\Tests\Unit\BaseTestCase;
+use Limenet\LaravelMysqlSpatial\Types\GeometryCollection;
+use Limenet\LaravelMysqlSpatial\Types\GeometryInterface;
+use Limenet\LaravelMysqlSpatial\Types\LineString;
+use Limenet\LaravelMysqlSpatial\Types\Point;
+use Limenet\LaravelMysqlSpatial\Types\Polygon;
 
 class GeometryCollectionTest extends BaseTestCase
 {
@@ -59,7 +63,7 @@ class GeometryCollectionTest extends BaseTestCase
     {
         $this->assertException(
             InvalidArgumentException::class,
-            'Grimzy\LaravelMysqlSpatial\Types\GeometryCollection must be a collection of Grimzy\LaravelMysqlSpatial\Types\GeometryInterface'
+            'Limenet\LaravelMysqlSpatial\Types\GeometryCollection must be a collection of Limenet\LaravelMysqlSpatial\Types\GeometryInterface'
         );
         $geometrycollection = new GeometryCollection([
             $this->getPoint(),
@@ -71,7 +75,7 @@ class GeometryCollectionTest extends BaseTestCase
     {
         $geometryCollection = $this->getGeometryCollection();
 
-        $this->assertInternalType('array', $geometryCollection->toArray());
+        $this->assertIsArray($geometryCollection->toArray());
     }
 
     public function testIteratorAggregate()
@@ -112,7 +116,7 @@ class GeometryCollectionTest extends BaseTestCase
         // assert invalid
         $this->assertException(
             InvalidArgumentException::class,
-            'Grimzy\LaravelMysqlSpatial\Types\GeometryCollection must be a collection of Grimzy\LaravelMysqlSpatial\Types\GeometryInterface'
+            'Limenet\LaravelMysqlSpatial\Types\GeometryCollection must be a collection of Limenet\LaravelMysqlSpatial\Types\GeometryInterface'
         );
         $geometryCollection[] = 1;
     }
@@ -130,8 +134,8 @@ class GeometryCollectionTest extends BaseTestCase
     public function testInvalidGeoJsonException()
     {
         $this->assertException(
-            \Grimzy\LaravelMysqlSpatial\Exceptions\InvalidGeoJsonException::class,
-            sprintf('Expected %s, got %s', GeoJson\Feature\FeatureCollection::class, GeoJson\Geometry\Point::class)
+            \Limenet\LaravelMysqlSpatial\Exceptions\InvalidGeoJsonException::class,
+            sprintf('Expected %s, got %s', \GeoJson\Feature\FeatureCollection::class, \GeoJson\Geometry\Point::class)
         );
         GeometryCollection::fromJson('{"type":"Point","coordinates":[3.4,1.2]}');
     }

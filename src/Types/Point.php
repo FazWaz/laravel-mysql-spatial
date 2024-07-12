@@ -1,85 +1,79 @@
 <?php
 
-namespace Grimzy\LaravelMysqlSpatial\Types;
+namespace Limenet\LaravelMysqlSpatial\Types;
 
 use GeoJson\GeoJson;
 use GeoJson\Geometry\Point as GeoJsonPoint;
-use Grimzy\LaravelMysqlSpatial\Exceptions\InvalidGeoJsonException;
+use Limenet\LaravelMysqlSpatial\Exceptions\InvalidGeoJsonException;
 
-class Point extends Geometry
+/**
+ * @implements GeometryInterface<GeoJsonPoint>
+ */
+class Point extends Geometry implements \Stringable, GeometryInterface
 {
-    protected $lat;
-
-    protected $lng;
-
-    public function __construct($lat, $lng, $srid = 0)
+    public function __construct(protected float $lat, protected float $lng, ?int $srid = 0)
     {
-        parent::__construct($srid);
-
-        $this->lat = (float) $lat;
-        $this->lng = (float) $lng;
+        parent::__construct((int) $srid);
     }
 
-    public function getLat()
+    public function getLat(): float
     {
         return $this->lat;
     }
 
-    public function setLat($lat)
+    public function setLat(float $lat): void
     {
-        $this->lat = (float) $lat;
+        $this->lat = $lat;
     }
 
-    public function getLng()
+    public function getLng(): float
     {
         return $this->lng;
     }
 
-    public function setLng($lng)
+    public function setLng(float $lng): void
     {
-        $this->lng = (float) $lng;
+        $this->lng = $lng;
     }
 
-    public function toPair()
+    public function toPair(): string
     {
         return $this->getLng().' '.$this->getLat();
     }
 
-    public static function fromPair($pair, $srid = 0)
+    public static function fromPair(string $pair, int $srid = 0): static
     {
-        list($lng, $lat) = explode(' ', trim($pair, "\t\n\r \x0B()"));
+        [$lng, $lat] = explode(' ', trim($pair, "\t\n\r \x0B()"));
 
-        return new static((float) $lat, (float) $lng, (int) $srid);
+        return new static((float) $lat, (float) $lng, $srid);
     }
 
-    public function toWKT()
+    public function toWKT(): string
     {
         return sprintf('POINT(%s)', (string) $this);
     }
 
-    public static function fromString($wktArgument, $srid = 0)
+    public static function fromString(string $wktArgument, int $srid = 0): self
     {
         return static::fromPair($wktArgument, $srid);
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getLng().' '.$this->getLat();
     }
 
     /**
-     * @param $geoJson  \GeoJson\Feature\Feature|string
-     *
-     * @return \Grimzy\LaravelMysqlSpatial\Types\Point
+     * @param  $geoJson  \GeoJson\Feature\Feature|string
      */
-    public static function fromJson($geoJson)
+    public static function fromJson(string|GeoJson $geoJson): self
     {
         if (is_string($geoJson)) {
-            $geoJson = GeoJson::jsonUnserialize(json_decode($geoJson));
+            $geoJson = GeoJson::jsonUnserialize(json_decode($geoJson, flags: JSON_THROW_ON_ERROR));
         }
 
-        if (!is_a($geoJson, GeoJsonPoint::class)) {
-            throw new InvalidGeoJsonException('Expected '.GeoJsonPoint::class.', got '.get_class($geoJson));
+        if (! $geoJson instanceof GeoJsonPoint) {
+            throw new InvalidGeoJsonException(GeoJsonPoint::class, $geoJson::class);
         }
 
         $coordinates = $geoJson->getCoordinates();
@@ -89,9 +83,8 @@ class Point extends Geometry
 
     /**
      * Convert to GeoJson Point that is jsonable to GeoJSON.
-     *
-     * @return \GeoJson\Geometry\Point
      */
+    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return new GeoJsonPoint([$this->getLng(), $this->getLat()]);
