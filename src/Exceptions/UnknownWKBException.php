@@ -2,6 +2,4 @@
 
 namespace Limenet\LaravelMysqlSpatial\Exceptions;
 
-class UnknownWKBException extends \RuntimeException
-{
-}
+class UnknownWKBException extends \RuntimeException {}

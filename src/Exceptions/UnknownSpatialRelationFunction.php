@@ -2,6 +2,4 @@
 
 namespace Limenet\LaravelMysqlSpatial\Exceptions;
 
-class UnknownSpatialRelationFunction extends \RuntimeException
-{
-}
+class UnknownSpatialRelationFunction extends \RuntimeException {}

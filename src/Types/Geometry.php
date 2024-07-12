@@ -21,9 +21,7 @@ abstract class Geometry implements \JsonSerializable, GeometryInterface, Jsonabl
         7 => GeometryCollection::class,
     ];
 
-    public function __construct(protected int $srid = 0)
-    {
-    }
+    public function __construct(protected int $srid = 0) {}
 
     public function getSrid(): int
     {

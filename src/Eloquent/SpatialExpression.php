@@ -13,9 +13,7 @@ class SpatialExpression extends Expression
      * @param  Geometry|GeometryInterface  $value
      * @return void
      */
-    public function __construct(protected $value)
-    {
-    }
+    public function __construct(protected $value) {}
 
     public function getValue(Grammar $grammar)
     {
